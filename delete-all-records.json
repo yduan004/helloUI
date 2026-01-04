@@ -1,0 +1,42 @@
+{
+  "Changes": [
+  {
+    "Action": "DELETE",
+    "ResourceRecordSet": {
+      "Name": "_eb12e21c064f962e91cca226186a3042.helloydz.com.",
+      "Type": "CNAME",
+      "TTL": 300,
+      "ResourceRecords": [
+        {
+          "Value": "_1562a4eedcdbd42912585e98212498c2.jkddzztszm.acm-validations.aws."
+        }
+      ]
+    }
+  },
+  {
+    "Action": "DELETE",
+    "ResourceRecordSet": {
+      "Name": "api.helloydz.com.",
+      "Type": "A",
+      "AliasTarget": {
+        "HostedZoneId": "Z35SXDOTRQ7X7K",
+        "DNSName": "helloapi-alb-1787389471.us-east-1.elb.amazonaws.com.",
+        "EvaluateTargetHealth": true
+      }
+    }
+  },
+  {
+    "Action": "DELETE",
+    "ResourceRecordSet": {
+      "Name": "_e6d144fd41c9cb0c2d05c9aea3121a97.api.helloydz.com.",
+      "Type": "CNAME",
+      "TTL": 300,
+      "ResourceRecords": [
+        {
+          "Value": "_5d845c587743cb39186699fa7749327a.jkddzztszm.acm-validations.aws."
+        }
+      ]
+    }
+  }
+]
+}
