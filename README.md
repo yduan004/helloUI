@@ -2,32 +2,33 @@
 
 React + TypeScript frontend for the Django User Management API.
 
+**Live Production**: https://helloydz.com  
+**API Backend**: https://api.helloydz.com
+
 ---
 
 ## 🚀 Quick Start
 
-### Step 1: Install Dependencies
+### Local Development
 
 ```bash
+# Install dependencies
 cd /Users/yduan/git/helloUI
 npm install
-```
 
-### Step 2: Start Backend
-
-```bash
-# In another terminal
+# Start backend (in another terminal)
 cd /Users/yduan/git/helloApi
 python manage.py runserver
-```
 
-### Step 3: Start Frontend
-
-```bash
+# Start frontend
 npm start
 ```
 
 The app will open at `http://localhost:3000`
+
+### Production Deployment
+
+See **[QUICK_START.md](QUICK_START.md)** for AWS S3 + CloudFront deployment.
 
 ---
 
@@ -256,6 +257,30 @@ npm run build
 
 ---
 
+## 🌐 Deployment
+
+### Production Environment
+
+- **Hosting**: AWS S3 + CloudFront CDN
+- **Domain**: https://helloydz.com
+- **SSL/TLS**: AWS Certificate Manager (ACM)
+- **CI/CD**: GitHub Actions
+
+### Deployment Guides
+
+- **[QUICK_START.md](QUICK_START.md)** - Fast track deployment guide (15 min)
+- **[AWS_DEPLOYMENT_GUIDE.md](AWS_DEPLOYMENT_GUIDE.md)** - Complete deployment documentation
+- **[CICD_SETUP.md](CICD_SETUP.md)** - GitHub Actions CI/CD setup
+
+### Manual Deployment
+
+```bash
+# Build and deploy to AWS
+./deploy.sh
+```
+
+---
+
 ## 🔗 Related Projects
 
 - **Backend API**: `/Users/yduan/git/helloApi`
@@ -270,4 +295,5 @@ MIT
 
 ---
 
-**Happy Coding! 🎉**
+**Live at**: https://helloydz.com 🚀
+
