@@ -6,8 +6,53 @@
 import axios, { AxiosInstance } from 'axios';
 import { User, UserInput, PaginatedResponse, ActionResponse } from '../types/User';
 
-// Base URL for the API - change this if your backend runs on a different port
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+/**
+ * Dynamically determine the API base URL based on the current environment
+ * Priority:
+ * 1. REACT_APP_API_URL environment variable (explicit override)
+ * 2. Auto-detect based on current hostname
+ * 3. Fallback to localhost for development
+ */
+const getApiBaseUrl = (): string => {
+    // Priority 1: Explicit environment variable override
+    if (process.env.REACT_APP_API_URL) {
+        return process.env.REACT_APP_API_URL;
+    }
+
+    // Priority 2: Auto-detect based on current hostname
+    if (typeof window !== 'undefined') {
+        const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
+
+        // Production: frontend at helloydz.com → backend at api.helloydz.com
+        if (hostname === 'helloydz.com' || hostname === 'www.helloydz.com') {
+            return 'https://api.helloydz.com/api';
+        }
+
+        // Local development: frontend at localhost → backend at localhost:8000
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://localhost:8000/api';
+        }
+
+        // Staging/other environments: construct API URL from current hostname
+        // e.g., staging.helloydz.com → api.staging.helloydz.com
+        if (hostname.includes('helloydz.com')) {
+            const apiHostname = hostname.replace(/^(www\.)?/, 'api.');
+            return `${protocol}//${apiHostname}/api`;
+        }
+    }
+
+    // Priority 3: Fallback for development (SSR or unknown environment)
+    return 'http://localhost:8000/api';
+};
+
+// Base URL for the API - automatically detected based on environment
+export const API_BASE_URL = getApiBaseUrl();
+
+// Log API URL in development for debugging
+if (process.env.NODE_ENV === 'development') {
+    console.log('🔗 API Base URL:', API_BASE_URL);
+}
 
 /**
  * Create axios instance with default configuration

@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import UserList from './components/UserList';
 import UserForm from './components/UserForm';
 import { User } from './types/User';
+import { API_BASE_URL } from './services/api';
 import './App.css';
 
 const App: React.FC = () => {
@@ -90,7 +91,7 @@ const App: React.FC = () => {
 
             <footer className="app-footer">
                 <p>
-                    Backend API: <code>http://localhost:8000/api</code>
+                    Backend API: <code>{API_BASE_URL}</code>
                 </p>
                 <p>
                     Built with React + TypeScript + Django REST Framework
