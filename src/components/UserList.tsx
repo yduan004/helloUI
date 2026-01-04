@@ -3,7 +3,7 @@
  * Displays a list of users with search, filter, and action buttons
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { User } from '../types/User';
 import { userAPI } from '../services/api';
 import './UserList.css';
@@ -20,24 +20,20 @@ const UserList: React.FC<UserListProps> = ({ onEdit, onRefresh }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filterActive, setFilterActive] = useState<string>('all');
 
-  // Fetch users on component mount and when filters change
-  useEffect(() => {
-    fetchUsers();
-  }, [filterActive]);
-
   /**
    * Fetch users from API
+   * Memoized with useCallback to prevent unnecessary re-renders
    */
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const params: any = {};
       if (filterActive !== 'all') {
         params.is_active = filterActive === 'active';
       }
-      
+
       const response = await userAPI.getAll(params);
       setUsers(response.results || response as any);
     } catch (err: any) {
@@ -46,7 +42,12 @@ const UserList: React.FC<UserListProps> = ({ onEdit, onRefresh }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filterActive]);
+
+  // Fetch users on component mount and when filters change
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   /**
    * Handle search
